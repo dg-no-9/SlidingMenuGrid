@@ -1,19 +1,5 @@
-
 #ifndef __SLIDING_MENU_GRID_H
 #define __SLIDING_MENU_GRID_H
-/*
- *Addon class for cocos2d-x framework (http://www.cocos2d-x.org)
- *Based on class Brandon Reynolds  http://brandonreynolds.com/blog/2011/01/09/cocos2d-sliding-menu-grid/,
- *and port sources Mr.  K pop(http://www.cocos2d-x.org/boards/6/topics/9803)
- * Make by Starfair studio (starfair@inbox.ru)
- * v1.0 29.03.2012 Add Label (CCLabelTTF *)for any pages (see metod  setPageLabel())
- * v1.1 30.03.2012 Tag number saved in each CCItemMenu * in CCMenuItemsArray not rewrite inside SlidingMenuGrid (see metod initWithArray())
- *				  and change logic to set items on pages (first added set on first page)
- * v1.2 19.03.2012 Fixed a bug where a locked item indicated by the touch as the chosen.
- Fixed a bug page counter by Mr.  K pop (http://www.cocos2d-x.org/boards/18/topics/9931?r=10275#message-10275	)
- Added the ability to be used as a descriptor page of any object pointer CCNode *
- * v1.3 20.06.2012 Paulo Coutinho - Changed method gotoPage to change page without animation, useful when menu is created.
- */
 
 #include "cocos2d.h"
 
