@@ -55,6 +55,8 @@ protected:
     
 	int iMenuRows;
 	CCMenu * pMenu;
+
+	float threshold; //Threshold value to limit full movement of page on first and last page.
 public:
 	SlidingMenuGrid();
 	~SlidingMenuGrid();
@@ -72,5 +74,7 @@ public:
 	void gotoPage(int iPage=0, bool animated = true);
 	void setPageLabel(int,CCNode *);//Add label on the page
     int getCurrentPage(){return iCurrentPage;}
+
+    void setThresholdPageLimit(float fValue);
 };
 #endif

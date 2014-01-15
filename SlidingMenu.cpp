@@ -39,6 +39,13 @@ bool SlidingMenuGrid::initWithArray(CCArray *items, int cols, int rows, CCPoint 
 		return false;
 	}
     
+     //default threshold Values
+	if(vertical)
+    	threshold = CCDirector::sharedDirector()->getWinSize().height / 4;
+    else 
+    	threshold = CCDirector::sharedDirector()->getWinSize().width / 4;
+
+
 	selectedItem = NULL;
 	setTouchEnabled(true);
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,0,true);
@@ -192,8 +199,25 @@ void SlidingMenuGrid::ccTouchMoved(CCTouch* touch, CCEvent* event){
 	// Calculate the current touch point during the move.
     touchStop = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());// Distance between the origin of the touch and current touch point.
 	fMoveDelta = (bVerticalPaging) ? (touchStop.y - touchOrigin.y) : (touchStop.x - touchOrigin.x);// Set our position.
-	setPosition(GetPositionOfCurrentPageWithOffset(fMoveDelta));
-	bMoving = true;
+	
+	if(iCurrentPage == 0){
+        if (fMoveDelta < threshold) {
+            setPosition(GetPositionOfCurrentPageWithOffset(fMoveDelta));
+            bMoving = true;
+            return;
+        }
+    }
+    else if(iCurrentPage == iPageCount - 1){
+        if (fMoveDelta > -threshold) {
+            setPosition(GetPositionOfCurrentPageWithOffset(fMoveDelta));
+            bMoving = true;
+            return;
+        }
+    }
+    else{
+        setPosition(GetPositionOfCurrentPageWithOffset(fMoveDelta));
+        bMoving = true;
+    }
 }
 
 void SlidingMenuGrid::ccTouchEnded(CCTouch* touch, CCEvent* event){
@@ -282,6 +306,11 @@ CCPoint SlidingMenuGrid::GetPositionOfCurrentPageWithOffset(float offset){
 // Returns the swiping dead zone.
 float SlidingMenuGrid::GetSwipeDeadZone(){
 	return fMoveDeadZone;
+}
+
+//Sets the width limit for First/Last page swipe limit.
+void SlidingMenuGrid::setThresholdPageLimit(float fValue){
+    threshold = fValue;
 }
 
 void SlidingMenuGrid::SetSwipeDeadZone(float fValue){
